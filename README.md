@@ -1,4 +1,4 @@
-# <img src="Images/Logo-CRT-3D-Klein.png" width="200"/> Chemical Reactor Design Toolbox
+# Chemical Reactor Design Toolbox
 
 The Chemical Reactor Design Toolbox is a custom library for the
 MATLAB/SIMSCAPE framework consisting of basic blocks. 
@@ -17,4 +17,4 @@ be defined. Iteratively applied, hierarchical multi-scale models can
 be created from scratch without the need of writing a single line of
 code (no-code programming).
 
-<Images/bilanz.svg>
+![alt text](./Images/bilanz.svg "Logo Title Text 1")
