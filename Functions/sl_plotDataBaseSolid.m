@@ -1,11 +1,11 @@
 % Plot Solid Properties (DataBase)
-% (c) Klaus Schnitzlein - 13.05.2024
+% (c) Klaus Schnitzlein - 19.11.2024
 
 function sl_plotDataBaseSolid(schema)
   schema.state = 'Enabled';
   schema.label = 'Plot Properties Solid';
   schema.childrenFcns = {...
-    @plot_Solid_H,@plot_Solid_S,...
+    @plot_Solid_H,@plot_Solid_G,...
     @plot_Solid_cp,@plot_Solid_lambda,...
     @plot_Solid_Vm};
 end
@@ -25,9 +25,9 @@ function schema = plot_Solid_H(callbackInfo)
   schema.callback = @callbackPlot;
 end
 
-function schema = plot_Solid_S(callbackInfo)
+function schema = plot_Solid_G(callbackInfo)
   schema = sl_action_schema;
-  schema.label = 'Entropy';
+  schema.label = 'Gibbs Energy';
   if(~exist(bdroot(gcs)+".slx",'file'))
     return
   end
@@ -35,8 +35,8 @@ function schema = plot_Solid_S(callbackInfo)
   propsSolid = mw.propsSolid;
   species = propsSolid.species;
   T = value(propsSolid.table_T,'K');
-  S = value(propsSolid.table_S,'kJ/(mol*K)');
-  schema.userdata = {T,S,species,'Entropy [kJ/(mol*K)]','Solid'};
+  G = value(propsSolid.table_G,'kJ/mol');
+  schema.userdata = {T,G,species,'Gibbs Energy [kJ/mol]','Solid'};
   schema.callback = @callbackPlot;
 end
 

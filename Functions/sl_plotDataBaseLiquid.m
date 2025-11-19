@@ -1,11 +1,11 @@
 % Plot Liquid Properties (DataBase)
-% (c) Klaus Schnitzlein - 13.05.2024
+% (c) Klaus Schnitzlein - 19.011.2024
 
 function sl_plotDataBaseLiquid(schema)
   schema.state = 'Enabled';
   schema.label = 'Plot Properties Liquid';
   schema.childrenFcns = {...
-    @plot_Liquid_H,@plot_Liquid_S,...
+    @plot_Liquid_H,@plot_Liquid_G,...
     @plot_Liquid_cp,@plot_Liquid_mu,...
     @plot_Liquid_lambda,@plot_Liquid_Vm,...
     @plot_Liquid_Hv,@plot_Liquid_pvap};
@@ -26,9 +26,9 @@ function schema = plot_Liquid_H(callbackInfo)
   schema.callback = @callbackPlot;
 end
 
-function schema = plot_Liquid_S(callbackInfo)
+function schema = plot_Liquid_G(callbackInfo)
   schema = sl_action_schema;
-  schema.label = 'Entropy';
+  schema.label = 'Gibbs Energy';
   if(~exist(bdroot(gcs)+".slx",'file'))
     return
   end
@@ -36,8 +36,8 @@ function schema = plot_Liquid_S(callbackInfo)
   propsLiquid = mw.propsLiquid;
   species = propsLiquid.species;
   T = value(propsLiquid.table_T,'K');
-  S = value(propsLiquid.table_S,'kJ/(mol*K)');
-  schema.userdata = {T,S,species,'Entropy [kJ/(mol*K)]','Liquid'};
+  G = value(propsLiquid.table_G,'kJ/mol');
+  schema.userdata = {T,G,species,'Gibbs Energy [kJ/mol]','Liquid'};
   schema.callback = @callbackPlot;
 end
 

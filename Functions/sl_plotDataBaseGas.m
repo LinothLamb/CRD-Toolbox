@@ -1,11 +1,11 @@
 % Plot Gas Properties (DataBase)
-% (c) Klaus Schnitzlein - 13.05.2024
+% (c) Klaus Schnitzlein - 19.11.2024
 
 function sl_plotDataBaseGas(schema)
   schema.state = 'Enabled';
   schema.label = 'Plot Properties Gas';
   schema.childrenFcns = {...
-    @plot_Gas_H,@plot_Gas_S,...
+    @plot_Gas_H,@plot_Gas_G,...
     @plot_Gas_cp,@plot_Gas_mu,...
     @plot_Gas_lambda};
 end
@@ -25,9 +25,9 @@ function schema = plot_Gas_H(callbackInfo)
   schema.callback = @callbackPlot;
 end
 
-function schema = plot_Gas_S(callbackInfo)
+function schema = plot_Gas_G(callbackInfo)
   schema = sl_action_schema;
-  schema.label = 'Entropy';
+  schema.label = 'Gibbs Energy';
   if(~exist(bdroot(gcs)+".slx",'file'))
     return
   end
@@ -35,8 +35,8 @@ function schema = plot_Gas_S(callbackInfo)
   props = mw.propsGas;
   species = props.species;
   T = value(props.table_T,'K');
-  S = value(props.table_S,'kJ/(mol*K)');
-  schema.userdata = {T,S,species,'Entropy [kJ/(mol*K)]','Gas'};
+  G = value(props.table_G,'kJ/mol');
+  schema.userdata = {T,G,species,'Gibbs Energy [kJ/mol]','Gas'};
   schema.callback = @callbackPlot;
 end
 
