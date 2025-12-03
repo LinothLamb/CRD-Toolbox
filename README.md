@@ -89,7 +89,8 @@ Run the setup script.
 
 ## Examples
 
-to come
+Examples can be found in the respective folder.
+
 
 ## API Reference Manual
 
