@@ -3,12 +3,11 @@ import ChemReactorDesign.Basic.Gas.enum.*;
 import ChemReactorDesign.Basic.Gas.Functions.*;
 import ChemReactorDesign.Basic.Gas.Volumes.*;
 
-
 component ClosedVolume < BaseVolume
   % Closed Volume : 1.5 : fixed
   % Closed Homogeneous Gas Volume
   %
-  %   (c) Klaus Schnitzlein - 05.08.2025
+  %   (c) Klaus Schnitzlein - 19.11.2025
   %
 
   inputs(ExternalAccess = none)
@@ -53,27 +52,34 @@ component ClosedVolume < BaseVolume
   equations(Initial = true)
     n == row_x0*p0*V/(z*R*T0); 
   end
+  
+  if(isothermalOperation == OnOff.On)
+    equations
+      T.der == 0;
+    end
+  else
+    if(compressionWork == OnOff.On)
+      equations
+        sum(F.*H) + sum(F)*Hres + sum(n.*cp)*T.der == Phi + Q + V*p.der;
+      end
+    else
+      equations
+        sum(F.*H) + sum(F)*Hres + sum(n.*cp)*T.der == Phi + Q;
+      end
+    end
+  end
 
   equations
     n.der == F;
-    if(isothermalOperation == OnOff.On)
-      T.der == 0
-    else
-      sum(F.*H) + sum(F)*Hres + sum(n.*cp)*T.der == Phi + Q + ...
-        if(compressionWork == OnOff.On)
-          V*p.der 
-        else 
-        0 
-      end
-    end
+    %p.der == z*R/V*(sum(n)*T.der+T*sum(F)); % Annahme: dz/dt = 0 funktioniert nicht !!!
+    p == z*R*T/V*sum(n);
     V == if(volumeInputOutput == InOut.Input),
       Vin
     else
       V0
     end;
-    p == z*sum(n)*R*T/V;
-
-    Vout == V;	
+    
+    Vout == V;
     Port_A.x == n(1:N-1,1)/(sum(n)+{eps,'mol'});
     Port_A.p == p;
   end

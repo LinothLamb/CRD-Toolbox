@@ -7,7 +7,7 @@ component Balloon2 <ChemReactorDesign.Basic.Gas.Volumes.BaseVolume
   % Balloon2 : 1.5 : fixed
   % Variable/Constant Homogeneous Gas Volume 
   %
-  %   (c) Klaus Schnitzlein - 09.10.2025
+  %   (c) Klaus Schnitzlein - 18.11.2025
   
   inputs(ExternalAccess = none)
     pin = {0,'bar'}; % p
@@ -58,45 +58,51 @@ component Balloon2 <ChemReactorDesign.Basic.Gas.Volumes.BaseVolume
     n == row_x0*V0*p/(z*R*T0);
   end
 
+  if(isothermalOperation == OnOff.On)
+    equations
+      T.der == 0;
+    end
+  else
+    if(compressionWork == OnOff.On)
+      equations
+        sum(F.*H) + sum(F)*Hres + sum(n.*cp)*T.der == Phi + Q + V*p.der;
+      end
+    else
+      equations
+        sum(F.*H) + sum(F)*Hres + sum(n.*cp)*T.der == Phi + Q;
+      end
+    end
+  end
+  
   equations
     n.der == F;
-    if(isothermalOperation == OnOff.On)
-      T.der == 0
-    else
-      sum(F.*H) + sum(F)*Hres + sum(n.*cp)*T.der == Phi + Q +...
-        if(compressionWork == OnOff.On)
-          V*p.der
-        else
-          0
-        end;
-    end
+    
     Vout == V;
     Port_A.x == n(1:N-1,1)/(sum(n)+{eps,'mol'});
     Port_A.p == p;
   end
 
   intermediates
-    Vcur = max_noZC(z*sum(n)*R*T/pcur,Vmin);
-    pcur = if(pressureInput == OnOff.On),
-      pin
-    else
-      p0
-    end;
+    Vcur = max_noZC(z*sum(n)*R*T/p,Vmin);
   end
-
+  
   modecharts(ExternalAccess = observe)
     m1 = modechart
       modes
         mode BALLOON
           equations
             V == Vcur;
-            p == pcur;
+            p == if(pressureInput == OnOff.On)
+              pin
+            else
+              p0
+            end
           end
         end
         mode CLOSEDVOLUME
           equations
             V == Vmax;
-            p == z*sum(n)*R*T/V;
+            p == z*R*T*sum(n)/V;
           end
         end
       end
