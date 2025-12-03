@@ -11,7 +11,7 @@ component Valve < ConvectionP(...
   % Convective Mass Transport through a valve
   %
   %   (c) Klaus Schnitzlein - 08.07.2025
-  ´
+  
   annotations
     Icon = './Valve.svg';
     delta : ExternalAccess = none;
