@@ -1,30 +1,38 @@
 % Enumeration Class for Interface Species
 %
-% (c) Klaus Schnitzlein - 05.05.2025
+% (c) Klaus Schnitzlein - 02.12.2025
 
 classdef SpeciesName < int32
   enumeration
     None (0)
-    N2 (1)
-    O2 (2)
-    H2 (3)
-    H2O (4)
-    CO (5)
-    CO2 (6)
-    CH4 (7)
-    C2H6 (8)
-    C3H7OH (9)
-    C4H8 (10)
-    C4H10 (11)
-    C6H6 (12)
-    C7H16 (13)
-    N2O (14)
+    A1 (1)
+    A2 (2)
+    A3 (3)
+    A4 (4)
+    N2 (5)
+    O2 (6)
+    H2 (7)
+    H2O (8)
+    CO (9)
+    CO2 (10)
+    CH4 (11)
+    C2H6 (12)
+    C3H7OH (13)
+    C4H8 (14)
+    C4H10 (15)
+    C6H6 (16)
+    C7H16 (17)
+    N2O (18)
   end
   methods (Static) 
     
 		function map = displayText()
 			map = containers.Map;
 			map('None') = ' ';
+      map('A1') = 'A1';
+      map('A2') = 'A2';
+      map('A3') = 'A3';
+      map('A4') = 'A4';
       map('N2') = 'N2';
       map('O2') = 'O2';
       map('H2') = 'H2';
@@ -44,6 +52,10 @@ classdef SpeciesName < int32
     function map = displayFileName()
 			map = containers.Map;
 			map('None') = ' ';
+      map('A1') = 'A1';
+      map('A2') = 'A2';
+      map('A3') = 'A3';
+      map('A4') = 'A4';
       map('N2') = 'Nitrogen';
       map('O2') = 'Oxygen';
       map('H2') = 'Hydrogen';

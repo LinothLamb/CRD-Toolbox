@@ -8,10 +8,10 @@ classdef NumberOfSpecies < int32
 	methods (Static, Hidden)
 	function map = displayText()
 	    map = containers.Map;
-            map('two') = '2';
-	    map('three') = '3';
-            map('four') = '4';
-            map('five') = '5';
-        end
+      map('two') = '2';
+      map('three') = '3';
+      map('four') = '4';
+      map('five') = '5';
+  end
 end
 end
