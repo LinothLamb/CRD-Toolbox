@@ -10,6 +10,7 @@ function callbackPlot(callbackInfo)
   ylabel(callbackInfo.userdata{4});
   grid
   species = callbackInfo.userdata{3};
+  species = string(species); % only test
   legend(species,'location','best','fontsize',12)
   title(callbackInfo.userdata{5});
 end
