@@ -12,6 +12,7 @@ function r = Nickalls(c,table_zdd)
     zdd = [tablelookup(table_zdd(:,1),table_zdd(:,2),yn/h,interpolation = linear, extrapolation = error),...
            tablelookup(table_zdd(:,1),table_zdd(:,3),yn/h,interpolation = linear, extrapolation = error),...
            tablelookup(table_zdd(:,1),table_zdd(:,4),yn/h,interpolation = linear, extrapolation = error)];
-    r = max(xn+delta*zdd);
+    % r = max(xn+delta*zdd);
+    r = xn+delta*zdd; % alle Lösungen
   end
 end

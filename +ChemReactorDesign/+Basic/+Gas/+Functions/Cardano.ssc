@@ -11,7 +11,7 @@ function val = Cardano(c)
     Q = 2*U^3/27-U*S/3+T;
     D = (P/3)^3+(Q/2)^2;
     Theta = sqrt(-P^3/27);
-    Phi = if(D>0), 
+    Phi = if(D>0),
       1 
     else 
       acos(-Q/(2*Theta)) 

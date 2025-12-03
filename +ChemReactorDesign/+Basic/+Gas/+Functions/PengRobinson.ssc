@@ -1,3 +1,4 @@
+import ChemReactorDesign.Basic.Functions.*;
 import ChemReactorDesign.Basic.Gas.Functions.*;
 
 function EoS_data = PengRobinson(table_zdd,x,p,T,pc,Tc,w,k)
@@ -41,17 +42,8 @@ function EoS_data = PengRobinson(table_zdd,x,p,T,pc,Tc,w,k)
     %% Interpolation Solution
     r = Nickalls(c,table_zdd);
 
-    % xn = -c(2)/(3*c(1));
-    % yn = c(1)*xn^3+c(2)*xn^2+c(3)*xn+c(4)
-    % delta = sqrt((c(2)^2-3*c(1)*c(3))/(9*c(1)^2));
-    % h = 2*c(1)*delta^3;
-    % zdd = [tablelookup(table_zdd(:,1),table_zdd(:,2),yn/h,interpolation = linear, extrapolation = error),...
-    %        tablelookup(table_zdd(:,1),table_zdd(:,3),yn/h,interpolation = linear, extrapolation = error),...
-    %        tablelookup(table_zdd(:,1),table_zdd(:,4),yn/h,interpolation = linear, extrapolation = error)];
-    % r = max(xn+delta*zdd);
-
     Vm = max(r);
-    z = p*Vm/(R*T);  
+    z = p*Vm/(R*T);
 
     % Fugazitätskoeffizienten
     e = 1 - sqrt(2); 
@@ -69,4 +61,3 @@ function EoS_data = PengRobinson(table_zdd,x,p,T,pc,Tc,w,k)
     EoS_data = [z;H;phi];
   end
 end
-
