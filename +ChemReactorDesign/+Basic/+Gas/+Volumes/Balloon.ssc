@@ -6,7 +6,7 @@ component Balloon <ChemReactorDesign.Basic.Gas.Volumes.BaseVolume
   % Balloon : 1.5 : fixed
   % Variable Homogeneous Gas Volume 
   %
-  %   (c) Klaus Schnitzlein - 19.11.2025
+  %   (c) Klaus Schnitzlein - 09.12.2025
   
   inputs(ExternalAccess = none)
     pin = {0,'bar'}; % p
@@ -72,10 +72,10 @@ component Balloon <ChemReactorDesign.Basic.Gas.Volumes.BaseVolume
 
   equations
     n.der == F;
-    p.der == if(pressureInput == OnOff.On),
-      pin.der
+    p == if(pressureInput == OnOff.On),
+      pin
     else
-      0
+      p0
     end;
     V == z*sum(n)*R*T/p;
     
